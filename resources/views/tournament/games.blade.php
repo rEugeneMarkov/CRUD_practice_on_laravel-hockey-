@@ -1,0 +1,14 @@
+@extends('tournament.show')
+@section('content2')
+    <div class="list-group w-auto">
+        @foreach ($gamesList->gamesList as $game)
+            <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <div class="d-flex gap-3 w-100 justify-content-between">
+                    <div>
+                        <h6>{{$loop->iteration}}. {{ $game['homeTeam']['title'] }} - {{ $game['guestTeam']['title'] }}</h6>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </div>
+@endsection

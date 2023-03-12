@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,10 +13,33 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(App\Http\Controllers\Main\IndexController::class)->group(function () {
+    Route::get('/', 'index')->name('main.index');
 });
+
+Route::controller(App\Http\Controllers\Tournament\IndexController::class)
+    ->prefix('tournaments')
+    ->name('tournament.')
+    ->group(function () {
+        Route::get('/', 'index')
+            ->name('index');
+        Route::get('/{tournament:title}', 'show')
+            ->name('show');
+        Route::get('/{tournament:title}/teams', 'teams')
+            ->name('teams');
+        Route::get('/{tournament:title}/games', 'games')
+            ->name('games');
+        Route::get('/{tournament:title}/teams/{team:title}', 'team')
+            ->name('team');
+    });
+
+Route::controller(App\Http\Controllers\Admin\Main\IndexController::class)
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', 'index')
+            ->name('index');
+    });
 
 Auth::routes();
 
