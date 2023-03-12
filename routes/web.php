@@ -21,24 +21,31 @@ Route::controller(App\Http\Controllers\Tournament\IndexController::class)
     ->prefix('tournaments')
     ->name('tournament.')
     ->group(function () {
-        Route::get('/', 'index')
-            ->name('index');
-        Route::get('/{tournament:title}', 'show')
-            ->name('show');
-        Route::get('/{tournament:title}/teams', 'teams')
-            ->name('teams');
-        Route::get('/{tournament:title}/games', 'games')
-            ->name('games');
-        Route::get('/{tournament:title}/teams/{team:title}', 'team')
-            ->name('team');
+        Route::get('/', 'index')->name('index');
+        Route::get('/{tournament:title}', 'show')->name('show');
+        Route::get('/{tournament:title}/teams', 'teams')->name('teams');
+        Route::get('/{tournament:title}/games', 'games')->name('games');
+        Route::get('/{tournament:title}/teams/{team:title}', 'team') ->name('team');
     });
 
 Route::controller(App\Http\Controllers\Admin\Main\IndexController::class)
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/', 'index')
-            ->name('index');
+        Route::get('/', 'index')->name('main.index');
+
+        Route::controller(App\Http\Controllers\Admin\Tournament\IndexController::class)
+        ->prefix('tournament')
+        ->name('tournament.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{tournament}', 'show')->name('show');
+            Route::get('/{tournament}/edit', 'edit')->name('edit');
+            Route::patch('/{tournament}', 'update')->name('update');
+            Route::delete('/{tournament}', 'delete')->name('delete');
+        });
     });
 
 Auth::routes();
