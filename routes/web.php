@@ -46,6 +46,19 @@ Route::controller(App\Http\Controllers\Admin\Main\IndexController::class)
             Route::patch('/{tournament}', 'update')->name('update');
             Route::delete('/{tournament}', 'delete')->name('delete');
         });
+
+        Route::controller(App\Http\Controllers\Admin\Team\IndexController::class)
+        ->prefix('team')
+        ->name('team.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{team}', 'show')->name('show');
+            Route::get('/{team}/edit', 'edit')->name('edit');
+            Route::patch('/{team}', 'update')->name('update');
+            Route::delete('/{team}', 'delete')->name('delete');
+        });
     });
 
 Auth::routes();

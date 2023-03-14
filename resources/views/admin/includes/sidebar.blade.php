@@ -20,6 +20,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.team.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-th-list"></i>
+                    <p>
+                        Команды
+                    </p>
+                </a>
+            </li>
         </ul>    
     </div>
     <!-- /.sidebar -->
