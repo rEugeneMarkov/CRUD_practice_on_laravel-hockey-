@@ -54,6 +54,7 @@ class IndexController extends Controller
 
     public function delete(Team $team)
     {
+        $team->players()->delete();
         $team->delete();
         return redirect()->route('admin.team.index');
     }

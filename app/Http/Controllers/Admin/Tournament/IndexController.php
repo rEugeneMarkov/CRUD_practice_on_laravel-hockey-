@@ -49,6 +49,10 @@ class IndexController extends Controller
 
     public function delete(Tournament $tournament)
     {
+        foreach ($tournament->teams as $team) {
+            $team->players()->delete();
+            $team->delete();
+        }
         $tournament->delete();
         return redirect()->route('admin.tournament.index');
     }

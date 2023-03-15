@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('position');
+            $table->unsignedBigInteger('position_id');
             $table->unsignedBigInteger('team_id');
             $table->timestamps();
 
             $table->index('team_id', 'team_player_idx');
             $table->foreign('team_id', 'team_player_fk')->on('teams')->references('id');
+
+            $table->index('position_id', 'position_player_idx');
+            $table->foreign('position_id', 'position_player_fk')->on('positions')->references('id');
         });
     }
 

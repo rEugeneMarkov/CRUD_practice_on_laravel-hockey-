@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Team;
+use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class PlayerFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'position' => 'testing',
+            'position_id' => Position::get()->random()->id,
             'team_id' => Team::get()->random()->id,
         ];
     }

@@ -11,4 +11,13 @@ class Player extends Model
 
     protected $table = 'players';
     protected $guarded = false;
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id', 'id');
+    }
 }

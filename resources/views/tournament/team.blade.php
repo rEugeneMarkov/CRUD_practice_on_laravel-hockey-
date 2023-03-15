@@ -33,7 +33,7 @@
                     @foreach ($team->players as $player)
                         <tr>
                             <th>{{ $player->name }}</th>
-                            <th>{{ $player->position }}</th>
+                            <th>{{ $player->position->title }}</th>
                             <th>{{ $team->title }}</th>
                         </tr>
                     @endforeach

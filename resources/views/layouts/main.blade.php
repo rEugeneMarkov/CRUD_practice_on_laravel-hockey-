@@ -28,8 +28,8 @@
                 <li class="nav-item"><a href="{{ route('tournament.index') }}"
                         class="nav-link {{ route('tournament.index') == url()->current() ? 'active' : '' }}"
                         aria-current="page">Tournaments</a></li>
-                <li class="nav-item"><a href="#"
-                        class="nav-link {{ 'index' == url()->current() ? 'active' : '' }}">Pricing</a></li>
+                <li class="nav-item"><a href="{{route('admin.main.index')}}"
+                        class="nav-link {{ route('admin.main.index') == url()->current() ? 'active' : '' }}">For Admins</a></li>
                 <li class="nav-item"><a href="#"
                         class="nav-link {{ 'index' == url()->current() ? 'active' : '' }}">FAQs</a></li>
                 <li class="nav-item"><a href="#"
@@ -53,7 +53,7 @@
             <ul class="nav col-md-4 justify-content-end">
                 <li class="nav-item"><a href="{{ route('main.index') }}" class="nav-link px-2 text-muted">Home</a></li>
                 <li class="nav-item"><a href="{{ route('tournament.index') }}" class="nav-link px-2 text-muted">Tournaments</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="{{ route('admin.main.index') }}" class="nav-link px-2 text-muted">For Admins</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
             </ul>

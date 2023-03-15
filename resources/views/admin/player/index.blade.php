@@ -9,12 +9,12 @@
       <div class="container-fluid">
           <div class="row mb-2">
               <div class="col-sm-6">
-                  <h1 class="m-0">Команды</h1>
+                  <h1 class="m-0">Игроки</h1>
               </div><!-- /.col -->
               <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                       <li class="breadcrumb-item"><a href="{{ route('admin.main.index') }}">Главная</a></li>
-                      <li class="breadcrumb-item active">Команды</li>
+                      <li class="breadcrumb-item active">Игроки</li>
                   </ol>
               </div><!-- /.col -->
           </div><!-- /.row -->
@@ -28,7 +28,7 @@
           <!-- Small boxes (Stat box) -->
           <div class="row">
               <div class="col-2 mb-3">
-                  <a href="{{ route('admin.team.create') }}" type="button"
+                  <a href="{{ route('admin.player.create') }}" type="button"
                       class="btn btn-block btn-primary">Добавить</a>
               </div>
           </div>
@@ -47,16 +47,16 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  @foreach ($teams as $team)
+                                  @foreach ($players as $player)
                                       <tr>
-                                          <td>{{ $team->id }}</td>
-                                          <td>{{ $team->title }}</td>
-                                          <td><a href="{{ route('admin.team.show', $team->id) }}"><i
+                                          <td>{{ $player->id }}</td>
+                                          <td>{{ $player->name }}</td>
+                                          <td><a href="{{ route('admin.player.show', $player->id) }}"><i
                                                       class="far fa-eye"></i></a></td>
-                                          <td><a href="{{ route('admin.team.edit', $team->id) }}"
+                                          <td><a href="{{ route('admin.player.edit', $player->id) }}"
                                                   class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                           <td>
-                                              <form action="{{ route('admin.team.delete', $team->id) }}"
+                                              <form action="{{ route('admin.player.delete', $player->id) }}"
                                                   method="POST">
                                                   @csrf
                                                   @method('DELETE')
@@ -75,7 +75,7 @@
                   </div>
                   <div class="row">
                       <div class="mx-auto mb-5">
-                          {{ $teams->links() }}
+                          {{ $players->links() }}
                       </div>
                   </div>
               </div>

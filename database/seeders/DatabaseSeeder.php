@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Team;
 use App\Models\Player;
+use App\Models\Position;
 use App\Models\Tournament;
 use Illuminate\Database\Seeder;
 
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        Position::factory(3)->create();
         Tournament::factory(5)->create();
         Team::factory(50)->create();
         Player::factory(1000)->create();
