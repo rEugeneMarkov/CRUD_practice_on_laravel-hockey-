@@ -31,22 +31,35 @@
                             @csrf
                             @method('PATCH')
                             <div class="form-group w-25">
-                                <input type="text" class="form-control" name="title" placeholder="Название поста"
+                                <input type="text" class="form-control" name="title" placeholder="Название команды"
                                     value="{{ $team->title }}">
                                 @error('title')
                                     <div class="text-danger">Это поле необходимо для заполнения</div>
                                 @enderror
                             </div>   
                             <div class="form-group w-50">
-                                <label>Выберите команду</label>
-                                <select name="tournament_id"class="form-control">
+                                <label>Выберите группу</label>
+                                <select name="group_id"class="form-control">
                                     @foreach ($tournaments as $tournament)
-                                        <option value="{{ $tournament->id }}"
-                                            {{ $tournament->id == $team->tournament_id ? 'selected' : '' }}>
-                                            {{ $tournament->title }}</option>
+                                    @foreach ($tournament->groups as $group)
+                                        <option value="{{ $group->id }}"
+                                            {{ $group->id == $team->group_id ? 'selected' : '' }}>
+                                            {{ $tournament->title }}/{{ $group->title }}</option>
+                                    @endforeach
                                     @endforeach
                                 </select>
-                            </div>              
+                            </div>
+                            <div class="form-group w-50">
+                                <label>Игроки</label>
+                                <select class="select2" name="player_ids[]" multiple="multiple"
+                                    data-placeholder="Выберите игроков" style="width: 100%;">
+                                    @foreach ($players as $player)
+                                        <option 
+                                            {{ is_array($team->players->pluck('id')->toArray()) && in_array($player->id, $team->players->pluck('id')->toArray()) ? 'selected' : '' }}
+                                            value="{{ $player->id }}"> {{ $player->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>             
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Обновить">
                             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Admin\Team;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -22,8 +24,16 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'tournament_id' => 'required|integer|exists:tournaments,id',
+            'title' => [
+                'required',
+                'string',
+                Rule::unique('teams')
+                    ->where(fn (Builder $query) => $query
+                    ->where('group_id', $this->group_id)),
+            ],
+            'group_id' => 'required|integer|exists:groups,id',
+            'player_ids' => 'required|array',
+            'player_ids.*' => 'nullable|integer|exists:players,id',
         ];
     }
 }

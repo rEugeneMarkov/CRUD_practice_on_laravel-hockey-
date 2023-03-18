@@ -21,7 +21,6 @@ class PlayerFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'position_id' => Position::get()->random()->id,
-            'team_id' => Team::get()->random()->id,
         ];
     }
 }

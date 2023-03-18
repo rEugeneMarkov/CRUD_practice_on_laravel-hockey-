@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Team\StoreRequest;
 use App\Http\Requests\Admin\Team\UpdateRequest;
+use App\Models\Player;
 
 class IndexController extends Controller
 {
@@ -19,14 +20,19 @@ class IndexController extends Controller
 
     public function create()
     {
+        $players = Player::all();
         $tournaments = Tournament::all();
-        return view('admin.team.create', compact('tournaments'));
+        return view('admin.team.create', compact('tournaments', 'players'));
     }
 
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        Team::firstOrCreate($data);
+        $playerIds = $data['player_ids'];
+        unset($data['player_ids']);
+        $team = Team::firstOrCreate($data);
+        $team->players()->attach($playerIds);
+
 
         return redirect()->route('admin.team.index');
     }
@@ -39,22 +45,25 @@ class IndexController extends Controller
 
     public function edit(Team $team)
     {
+        $players = Player::all();
         $tournaments = Tournament::all();
-        return view('admin.team.edit', compact('team', 'tournaments'));
+        return view('admin.team.edit', compact('team', 'tournaments', 'players'));
     }
 
     public function update(UpdateRequest $request, Team $team)
     {
         $data = $request->validated();
+        $playerIds = $data['player_ids'];
+        unset($data['player_ids']);
+        $team->players()->sync($playerIds);
         $team->update($data);
-        $tournament = Tournament::where('id', '=', $team->tournament_id)->get();
 
-        return view('admin.team.show', compact('team', 'tournament'));
+        return view('admin.team.show', compact('team'));
     }
 
     public function delete(Team $team)
     {
-        $team->players()->delete();
+        $team->players()->detach();
         $team->delete();
         return redirect()->route('admin.team.index');
     }

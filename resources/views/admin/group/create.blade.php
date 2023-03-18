@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Добавление команды</h1>
+                        <h1 class="m-0">Добавление группы</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.main.index') }}">Главная</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.team.index') }}">Команды</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.tournament.index') }}">Турниры</a></li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,38 +27,25 @@
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('admin.team.store') }}" method="POST">
+                        <form action="{{ route('admin.group.store') }}" method="POST">
                             @csrf
                             <div class="form-group w-25">
-                                <input type="text" class="form-control" name="title" placeholder="Название команды"
+                                <input type="text" class="form-control" name="title" placeholder="Название группы"
                                     value="{{ old('title') }}">
                                 @error('title')
                                     <div class="text-danger">Это поле необходимо для заполнения</div>
                                 @enderror
-                            </div>
+                            </div>  
                             <div class="form-group w-50">
-                                <label>Выберите группу</label>
-                                <select name="group_id"class="form-control">
+                                <label>Выберите турнир</label>
+                                <select name="tournament_id"class="form-control">
                                     @foreach ($tournaments as $tournament)
-                                    @foreach ($tournament->groups as $group)
-                                        <option value="{{ $group->id }}"
-                                            {{ $group->id == old('group_id') ? 'selected' : '' }}>
-                                            {{ $tournament->title }}/{{ $group->title }}</option>
-                                    @endforeach
+                                        <option value="{{ $tournament->id }}"
+                                            {{ $tournament->id == old('tournament_id') ? 'selected' : '' }}>
+                                            {{ $tournament->title }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="form-group w-50">
-                                <label>Игроки</label>
-                                <select class="select2" name="player_ids[]" multiple="multiple"
-                                    data-placeholder="Выберите игроков" style="width: 100%;">
-                                    @foreach ($players as $player)
-                                        <option
-                                            {{ is_array(old('player_ids')) && in_array($player->id, old('player_ids')) ? 'selected' : '' }}
-                                            value="{{ $player->id }}"> {{ $player->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            </div>                
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Добавить">
                             </div>

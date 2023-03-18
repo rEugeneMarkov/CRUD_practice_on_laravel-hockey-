@@ -8,10 +8,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6 d-flex align-items-center">
-                        <h1 class="m-0 mr-2">{{ $tournament->title }}</h1>
-                        <a href="{{ route('admin.tournament.edit', $tournament->id) }}" class="text-success"><i
+                        <h1 class="m-0 mr-2">{{ $group->title }}</h1>
+                        <a href="{{ route('admin.group.edit', $group->id) }}" class="text-success"><i
                                 class="fas fa-pencil-alt"></i></a>
-                        <form action="{{ route('admin.tournament.delete', $tournament->id) }}" method="POST">
+                        <form action="{{ route('admin.group.delete', $group->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="border-0 bg-transparent">
@@ -22,8 +22,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.main.index') }}">Главная</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.tournament.index') }}">Турниры</a></li>
-                            <li class="breadcrumb-item active">{{ $tournament->title }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.group.index') }}">Турниры</a></li>
+                            <li class="breadcrumb-item active">{{ $group->title }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -45,11 +45,11 @@
                                     <tbody>
                                         <tr>
                                             <td>ID</td>
-                                            <td>{{ $tournament->id }}</td>
+                                            <td>{{ $group->id }}</td>
                                         </tr>
                                         <tr>
                                             <td>Название</td>
-                                            <td>{{ $tournament->title }}</td>
+                                            <td>{{ $group->title }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -57,25 +57,17 @@
                         </div>
                         <div class="card-body table-responsive p-0 mb-5">
                             <h3>Команды</h3>
-                            @foreach ($tournament->groups as $group)
-                                <a href="{{ route('admin.group.show', $group) }}"
-                                    class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                                    <b>{{ $group->title }}</b>
-                                </a>
-                                @foreach ($group->teams as $team)
+                            
+                            @foreach ($group->teams as $team)
                                     <a href="{{ route('admin.team.show', $team) }}"
                                         class="list-group-item list-group-item-action d-flex gap-3 py-3"
                                         aria-current="true">
-                                        {{ $loop->iteration }}. {{ $team->title }}
+                                        {{$loop->iteration}}. {{ $team->title }}
                                     </a>
-                                @endforeach
-                                <a href="#"
-                                    class="list-group-item d-flex gap-3 py-3">
-                                    
-                                </a>
                             @endforeach
+                           
                         </div>
-                        <!-- /.card-body --> 
+                        <!-- /.card-body -->
                     </div>
                 </div>
                 <!-- ./col -->

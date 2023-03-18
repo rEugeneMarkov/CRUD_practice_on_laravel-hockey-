@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Team;
+namespace App\Http\Requests\Admin\Group;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,14 +27,11 @@ class UpdateRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                Rule::unique('teams')
+                Rule::unique('groups')
                     ->where(fn (Builder $query) => $query
-                    ->where('group_id', $this->group_id))
-                    ->ignore($this->title),
+                    ->where('tournament_id', $this->tournament_id)),
             ],
-            'group_id' => 'required|integer|exists:groups,id',
-            'player_ids' => 'required|array',
-            'player_ids.*' => 'nullable|integer|exists:players,id',
+            'tournament_id' => 'required|integer|exists:tournaments,id',
         ];
     }
 }

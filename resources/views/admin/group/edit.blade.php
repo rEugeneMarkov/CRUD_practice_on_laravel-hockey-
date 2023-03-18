@@ -27,12 +27,12 @@
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('admin.tournament.update', $tournament->id) }}" method="POST">
+                        <form action="{{ route('admin.group.update', $group->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="form-group w-25">
-                                <input type="text" class="form-control" name="title" placeholder="Название турнира"
-                                    value="{{ $tournament->title }}">
+                                <input type="text" class="form-control" name="title" placeholder="Название поста"
+                                    value="{{ $group->title }}">
                                 @error('title')
                                     <div class="text-danger">Это поле необходимо для заполнения</div>
                                 @enderror

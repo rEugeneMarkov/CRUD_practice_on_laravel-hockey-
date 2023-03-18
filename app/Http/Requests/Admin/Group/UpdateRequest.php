@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Team;
+namespace App\Http\Requests\Admin\Group;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
@@ -27,14 +27,11 @@ class UpdateRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                Rule::unique('teams')
+                Rule::unique('groups')
                     ->where(fn (Builder $query) => $query
-                    ->where('group_id', $this->group_id))
+                    ->where('tournament_id', $this->tournament_id))
                     ->ignore($this->title),
             ],
-            'group_id' => 'required|integer|exists:groups,id',
-            'player_ids' => 'required|array',
-            'player_ids.*' => 'nullable|integer|exists:players,id',
         ];
     }
 }

@@ -54,8 +54,8 @@
                                         <tr>
                                             <td>Турнир</td>
                                             <td>
-                                                <a href="{{ route('admin.tournament.show', $tournament[0]) }}">
-                                                    {{ $tournament[0]->title }}
+                                                <a href="{{ route('admin.tournament.show', $team->group->tournament->id) }}">
+                                                    {{ $team->group->tournament->title }}
                                                 </a>
                                             </td>
                                         </tr>
@@ -74,6 +74,7 @@
                                 <table class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Имя</th>
                                             <th>Позиция</th>
                                             <th>Команда</th>
@@ -82,13 +83,14 @@
                                     <tbody>
                                         @foreach ($team->players as $player)
                                             <tr>
+                                                <td>{{$loop->iteration}}.</td>
                                                 <td>
                                                     <a href="{{ route('admin.player.show', $player->id)}}" aria-current="true">
                                                         {{ $player->name }}
                                                     </a>
                                                 </td>
                                                 <td>{{ $player->position->title }}</td>
-                                                <td>{{ $player->team->title }}</td>
+                                                <td>{{ $team->title }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

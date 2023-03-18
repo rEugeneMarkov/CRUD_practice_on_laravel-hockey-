@@ -12,9 +12,9 @@ class Player extends Model
     protected $table = 'players';
     protected $guarded = false;
 
-    public function team()
+    public function teams()
     {
-        return $this->belongsTo(Team::class, 'team_id', 'id');
+        return $this->belongsToMany(Team::class, 'player_teams', 'player_id', 'team_id');
     }
     public function position()
     {

@@ -58,6 +58,7 @@
                                             <th>Имя</th>
                                             <th>Позиция</th>
                                             <th>Команда</th>
+                                            <th>Турнир</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,12 +66,20 @@
                                                 <td>{{ $player->name }}</td>
                                                 <td>{{ $player->position->title }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.team.show', $player->team->id)}}">
-                                                    {{ $player->team->title }}
-                                                    </a>
+                                                    @foreach ($player->teams as $team)
+                                                    <a href="{{ route('admin.team.show', $team->id)}}">
+                                                        {{ $team->title }}
+                                                    </a><br>
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach ($player->teams as $team)
+                                                    <a href="{{ route('admin.tournament.show', $team->group->tournament->id)}}">
+                                                        {{ $team->group->tournament->title }}
+                                                    </a><br>
+                                                    @endforeach
                                                 </td>
                                             </tr>
-                                        
                                     </tbody>
                                 </table>
                             </div>

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Tournament;
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +19,7 @@ class TeamFactory extends Factory
     {
         return [
             'title' => $this->faker->country . ' team',
-            'tournament_id' => Tournament::get()->random()->id,
+            'group_id' => Group::get()->random()->id,
         ];
     }
 }

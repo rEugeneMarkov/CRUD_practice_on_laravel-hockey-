@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Group;
 use App\Models\Team;
 use App\Models\Player;
 use App\Models\Position;
@@ -25,7 +26,13 @@ class DatabaseSeeder extends Seeder
         // ]);
         Position::factory(3)->create();
         Tournament::factory(5)->create();
-        Team::factory(50)->create();
-        Player::factory(1000)->create();
+        Group::factory(15)->create();
+        $teams = Team::factory(50)->create();
+        $players = Player::factory(1000)->create();
+
+        foreach ($players as $player) {
+            $teamsIds = $teams->random(2)->pluck('id');
+            $player->teams()->attach($teamsIds);
+        }
     }
 }

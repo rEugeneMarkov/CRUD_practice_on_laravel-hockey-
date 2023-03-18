@@ -29,7 +29,10 @@ class IndexController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        Player::firstOrCreate($data);
+        $teamId = $data['team_id'];
+        unset($data['team_id']);
+        $player = Player::firstOrCreate($data);
+        $player->teams()->attach($teamId);
 
         return redirect()->route('admin.player.index');
     }

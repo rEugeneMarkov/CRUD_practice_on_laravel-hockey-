@@ -6,11 +6,11 @@ use App\Models\Tournament;
 
 class GamesListService
 {
-    public $gamesList = [];
-    public $tournament;
-    public $teams;
+    public array $gamesList = [];
+    public Tournament $tournament;
+    public array $teams;
 
-    public function create(Tournament $tournament)
+    public function create(Tournament $tournament): GamesListService
     {
         $this->tournament = $tournament;
         $this->teams = $this->createTeamsList($this->tournament->teams);
@@ -84,7 +84,7 @@ class GamesListService
         $this->gamesList = $gamesList;
         return $this;
     }
-    public function createTeamsList($teams)
+    public function createTeamsList($teams): array
     {
         foreach ($teams as $key => $value) {
             $teams[$key + 1] = $value;

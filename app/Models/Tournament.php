@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Game;
-use App\Models\Team;
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,12 +14,13 @@ class Tournament extends Model
     protected $table = 'tournaments';
     protected $guarded = false;
 
+    public function groups()
+    {
+        return $this->hasMany(Group::class, 'tournament_id', 'id');
+    }
+
     public function teams()
     {
-        return $this->hasMany(Team::class, 'tournament_id', 'id');
-    }
-    public function games()
-    {
-        return $this->hasMany(Game::class, 'tournament_id', 'id');
+        return $this->hasManyThrough(Team::class, Group::class);
     }
 }

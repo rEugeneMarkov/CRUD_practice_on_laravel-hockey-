@@ -15,6 +15,11 @@ class Team extends Model
 
     public function players()
     {
-        return $this->hasMany(Player::class, 'team_id', 'id');
+        return $this->belongsToMany(Player::class, 'player_teams', 'team_id', 'player_id');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 }
